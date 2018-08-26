@@ -53,7 +53,6 @@ class Config(object):
         self.max_train_ann_num = 1000
 
         # remark this line to eval on whole data.
-        # This number has to >= batch_size
         self.max_eval_ann_num = 20
 
         # about the vocabulary

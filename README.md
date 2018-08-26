@@ -1,7 +1,22 @@
 ## Python 3 Version of Show, Attend and Tell using Tensorflow
-This repo is python3 version of [DeepRNN/image_captioning](https://github.com/DeepRNN/image_captioning), which implements "Show, Attend and Tell: Neural Image Caption Generation with Visual Attention" by Xu et al. (ICML2015). Many thanks to [salaniz's coco evaluation tool for python3](https://github.com/salaniz/pycocoevalcap). I am using
+This repo is based on [Python3 version](https://github.com/coldmanck/show-attend-and-tell) of [DeepRNN/image_captioning](https://github.com/DeepRNN/image_captioning), which implements "Show, Attend and Tell: Neural Image Caption Generation with Visual Attention" by Xu et al. (ICML2015). Many thanks to [salaniz's coco evaluation tool for python3](https://github.com/salaniz/pycocoevalcap).
+
+This version revised as below:
 - Python 3.6
-- Tensorflow 1.8.0
+- Tensorflow 1.7.0
+- Support windows platform
+- Support distributed computing on [Clusterone platform](https://clusterone.com/) (Not yet finished)
+- Fix COCO library to support python 3.6 and below new parameters
+- Add new parameters in config.py
+
+        # size of COCO dataset
+        # Remove below two setting if train on whole coco datasets
+        # remark this line to train on whole data
+        self.max_train_ann_num = 1000
+
+        # remark this line to eval on whole data.
+        self.max_eval_ann_num = 20
+
 
 #### Original readme below
 
@@ -25,26 +40,26 @@ To train a model using the COCO train2014 data, first setup various parameters i
 ```shell
 python main.py --phase=train \
     --load_cnn \
-    --cnn_model_file='./vgg16_no_fc.npy'\
+    --cnn_model_file=./vgg16_no_fc.npy \
     [--train_cnn]    
 ```
 Turn on `--train_cnn` if you want to jointly train the CNN and RNN parts. Otherwise, only the RNN part is trained. The checkpoints will be saved in the folder `models`. If you want to resume the training from a checkpoint, run a command like this:
 ```shell
 python main.py --phase=train \
     --load \
-    --model_file='./models/xxxxxx.npy'\
+    --model_file=./models/xxxxxx.npy \
     [--train_cnn]
 ```
 To monitor the progress of training, run the following command:
 ```shell
-tensorboard --logdir='./summary/'
+tensorboard --logdir=./summary/
 ```
 
 * **Evaluation:**
 To evaluate a trained model using the COCO val2014 data, run a command like this:
 ```shell
 python main.py --phase=eval \
-    --model_file='./models/xxxxxx.npy' \
+    --model_file=./models/xxxxxx.npy \
     --beam_size=3
 ```
 The result will be shown in stdout. Furthermore, the generated captions will be saved in the file `val/results.json`.
@@ -53,7 +68,7 @@ The result will be shown in stdout. Furthermore, the generated captions will be 
 You can use the trained model to generate captions for any JPEG images! Put such images in the folder `test/images`, and run a command like this:
 ```shell
 python main.py --phase=test \
-    --model_file='./models/xxxxxx.npy' \
+    --model_file=./models/xxxxxx.npy \
     --beam_size=3
 ```
 The generated captions will be saved in the folder `test/results`.
