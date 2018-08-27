@@ -46,6 +46,12 @@ class Config(object):
         self.save_period = 50  # Default = 1000
         self.save_dir = './models/'
         self.summary_dir = './summary/'
+<<<<<<< HEAD
+=======
+        self.path_to_local_logs = './logs'
+        self.root_path_to_local_data = './data'
+        
+>>>>>>> parent of a8631a3... change log path
 
         # size of COCO dataset
         # Remove below two setting if train on whole coco datasets

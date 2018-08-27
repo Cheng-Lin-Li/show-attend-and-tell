@@ -6,6 +6,14 @@ This version revised as below:
 - Tensorflow 1.7.0
 - Support windows platform
 - Support distributed computing on [Clusterone platform](https://clusterone.com/) (Not yet finished)
+- Add ./data folder to collect all data related folders.
+
+	- Below folders move to under ./data folder
+		1. models
+		2. train
+		3. val
+		4. test
+		5. pre-trained models (vgg16 & resnet50)
 - Fix COCO library to support python 3.6 and below new parameters
 - Add new parameters in config.py
 
@@ -40,14 +48,14 @@ To train a model using the COCO train2014 data, first setup various parameters i
 ```shell
 python main.py --phase=train \
     --load_cnn \
-    --cnn_model_file=./vgg16_no_fc.npy \
+    --cnn_model_file=./data/vgg16_no_fc.npy \
     [--train_cnn]    
 ```
 Turn on `--train_cnn` if you want to jointly train the CNN and RNN parts. Otherwise, only the RNN part is trained. The checkpoints will be saved in the folder `models`. If you want to resume the training from a checkpoint, run a command like this:
 ```shell
 python main.py --phase=train \
     --load \
-    --model_file=./models/xxxxxx.npy \
+    --model_file=./data/models/xxxxxx.npy \
     [--train_cnn]
 ```
 To monitor the progress of training, run the following command:
@@ -59,7 +67,7 @@ tensorboard --logdir=./summary/
 To evaluate a trained model using the COCO val2014 data, run a command like this:
 ```shell
 python main.py --phase=eval \
-    --model_file=./models/xxxxxx.npy \
+    --model_file=./data/models/xxxxxx.npy \
     --beam_size=3
 ```
 The result will be shown in stdout. Furthermore, the generated captions will be saved in the file `val/results.json`.
@@ -68,7 +76,7 @@ The result will be shown in stdout. Furthermore, the generated captions will be 
 You can use the trained model to generate captions for any JPEG images! Put such images in the folder `test/images`, and run a command like this:
 ```shell
 python main.py --phase=test \
-    --model_file=./models/xxxxxx.npy \
+    --model_file=./data/models/xxxxxx.npy \
     --beam_size=3
 ```
 The generated captions will be saved in the folder `test/results`.
