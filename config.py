@@ -42,16 +42,17 @@ class Config(object):
         self.beta2 = 0.999
         self.epsilon = 1e-6
 
+        # configuration for Clusterone environment
+        self.path_to_local_logs = './summary'
+        self.root_path_to_local_data = './data'
+        self.local_repo = 'show-attend-and-tell'
+        self.cloud_user_repo = 'Cheng-Lin-Li/show-attend-and-tell'
+        self.cloud_path_to_data = 'data'
+
         # about the saver
         self.save_period = 50  # Default = 1000
-        self.save_dir = './models/'
+        self.save_dir = './data/models/'
         self.summary_dir = './summary/'
-<<<<<<< HEAD
-=======
-        self.path_to_local_logs = './logs'
-        self.root_path_to_local_data = './data'
-        
->>>>>>> parent of a8631a3... change log path
 
         # size of COCO dataset
         # Remove below two setting if train on whole coco datasets
@@ -62,23 +63,23 @@ class Config(object):
         self.max_eval_ann_num = 20
 
         # about the vocabulary
-        self.vocabulary_file = './vocabulary.csv'
+        self.vocabulary_file = './data/vocabulary.csv'
         self.vocabulary_size = 5000
 
         # about the training
-        self.train_image_dir = './train/images/'
-        self.train_caption_file = './train/captions_train2014.json'
-        self.temp_annotation_file = './train/anns.csv'
-        self.temp_data_file = './train/data.npy'
+        self.train_image_dir = './data/train/images/'
+        self.train_caption_file = './data/train/captions_train2014.json'
+        self.temp_annotation_file = './data/train/anns.csv'
+        self.temp_data_file = './data/train/data.npy'
 
         # about the evaluation
-        self.eval_image_dir = './val/images/'
-        self.eval_caption_file = './val/captions_val2014.json'
-        self.eval_result_dir = './val/results/'
-        self.eval_result_file = './val/results.json'
+        self.eval_image_dir = './data/val/images/'
+        self.eval_caption_file = './data/val/captions_val2014.json'
+        self.eval_result_dir = './data/val/results/'
+        self.eval_result_file = './data/val/results.json'
         self.save_eval_result_as_image = True
 
         # about the testing
-        self.test_image_dir = './test/images/'
-        self.test_result_dir = './test/results/'
-        self.test_result_file = './test/results.csv'
+        self.test_image_dir = './data/test/images/'
+        self.test_result_dir = './data/test/results/'
+        self.test_result_file = './data/test/results.csv'
