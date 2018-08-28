@@ -25,16 +25,16 @@ class distributed_env():
                  logs_path=None,
                  local_repo=None,
                  cloud_user_repo=None,
-                 flags=tf.app.flags.FLAGS):
+                 flags=tf.app.flags):
 
         self.data_path = local_data_path
         self.logs_path = logs_path
         self.local_repo = local_repo
         self.cloud_data_path = cloud_data_path
+        self.cloud_user_repo = cloud_user_repo
         self.flags = flags
-        return self.flags
 
-    def get_env(self, data_subfolder=None):
+    def get_env(self):
         # Configure  distributed task
         try:
             job_name = os.environ['JOB_NAME']
@@ -51,7 +51,6 @@ class distributed_env():
         # Flags for configuring the distributed task
         flags.DEFINE_string("job_name", job_name,
                             "job name: worker or ps")
-
         flags.DEFINE_integer("task_index", task_index,
                              "Worker task index, should be >= 0. task_index=0 is "
                              "the chief worker task that performs the variable "
@@ -84,6 +83,7 @@ class distributed_env():
                             "If you set your logs directory manually make sure"
                             "to use /logs/ when running on ClusterOne cloud.")
 
+        self.flags = flags
     def device_and_target(self):
         # If FLAGS.job_name is not set, we're running single-machine TensorFlow.
         # Don't set a device.

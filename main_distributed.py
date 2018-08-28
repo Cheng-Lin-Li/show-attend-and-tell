@@ -13,8 +13,6 @@ from dataset import prepare_train_data, prepare_eval_data, prepare_test_data
 
 from clusterone_config import distributed_env
 
-FLAGS = tf.app.flags.FLAGS
-
 tf.flags.DEFINE_string('phase', 'train',
                        'The phase can be train, eval or test')
 
@@ -39,6 +37,8 @@ tf.flags.DEFINE_integer('beam_size', 3,
                         'The size of beam search for caption generation')
 
 def main(argv):
+    flags = tf.app.flags
+    FLAGS = flags.FLAGS
     config = Config()
     config.phase = FLAGS.phase
     config.train_cnn = FLAGS.train_cnn
@@ -50,9 +50,9 @@ def main(argv):
                                           config.cloud_path_to_data,
                                           config.local_repo,
                                           config.cloud_user_repo,
-                                          tf.flags)
-    
-    FLAGS = clusterone_dist_env.get_env()
+                                          flags)
+
+    clusterone_dist_env.get_env()
 
     tf.reset_default_graph()
     device, target = clusterone_dist_env.device_and_target() # getting node environment
